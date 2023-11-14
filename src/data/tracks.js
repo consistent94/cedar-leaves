@@ -6,15 +6,15 @@ import quads from './quad.wav'
 
 export const tracks = [
     {
-      title: 'volca',
+      name: 'volca',
       src: volca,
     },
     {
-      title: 'minimal',
+      name: 'minimal',
       src: minimal,
     },
     {
-      title: 'quads',
+      name: 'quads',
       src: quads
     },
   ];

@@ -1,19 +1,30 @@
-import React from 'react';
+import React, { useContext } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 
-import '../styles/Track.css'
+import useMusicPlayer from "./../hooks/useMusicPlayer";
 
-function Track({ track }) {
+import '../styles/track.css'
 
-    return (
-        <div className="Track">
-            <span class="track-title">{track.title}</span>
-
-            <button className="play-button" >
-                Play
-            </button>
+function TrackList() {
+  const music = useMusicPlayer();
+  console.log("music: ", music);
+  return (
+    <div className="track">
+      {music.trackList.map((track, index) => (
+        <div className="box">
+          <button className="button" onClick={() => music.playTrack(index)}>
+            {music.isPlaying && music.currentTrackIndex === index ? (
+              <FontAwesomeIcon icon={faPause} />
+            ) : (
+              <FontAwesomeIcon icon={faPlay} />
+            )}
+          </button>
+          <div className="track-title">{track.name}</div>
         </div>
-        
-    )
+      ))}
+    </div>
+  );
 }
 
-export default Track;
+export default TrackList;
