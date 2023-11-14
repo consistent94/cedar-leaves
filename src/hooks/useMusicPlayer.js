@@ -10,6 +10,7 @@ const useMusicPlayer = () => {
     } else {
         state.audioPlayer.pause();
         state.audioPlayer = new Audio(state.tracks[index].file);
+        console.log("index: ", state.tracks[index]);
         state.audioPlayer.play();
       setState({ ...state, currentTrackIndex: index, isPlaying: true });
     }
@@ -24,6 +25,22 @@ const useMusicPlayer = () => {
     setState({ ...state, isPlaying: !state.isPlaying });
   }
 
+  function playNextTrack() {
+    let newIndex = null;
+    state.currentTrackIndex === state.tracks.length - 1
+      ? (newIndex = 0)
+      : (newIndex = state.currentTrackIndex + 1);
+    playTrack(newIndex);
+  }
+
+  function playPreviousTrack() {
+    let newIndex = null;
+    state.currentTrackIndex === 0
+      ? (newIndex = state.tracks.length - 1)
+      : (newIndex = state.currentTrackIndex - 1);
+    playTrack(newIndex);
+  }
+
   return {
     playTrack,
     togglePlay,
@@ -33,6 +50,8 @@ const useMusicPlayer = () => {
       state.tracks[state.currentTrackIndex].name,
     trackList: state.tracks,
     isPlaying: state.isPlaying,
+    playNextTrack,
+    playPreviousTrack
   };
 };
 
