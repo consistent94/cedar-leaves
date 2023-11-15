@@ -51,7 +51,8 @@ const useMusicPlayer = () => {
     trackList: state.tracks,
     isPlaying: state.isPlaying,
     playNextTrack,
-    playPreviousTrack
+    playPreviousTrack,
+    audioPlayer: state.audioPlayer
   };
 };
 

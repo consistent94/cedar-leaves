@@ -6,25 +6,30 @@ import useMusicPlayer from "./../hooks/useMusicPlayer";
 
 import '../styles/track.css'
 
+
 function TrackList() {
   const music = useMusicPlayer();
-  console.log("music: ", music);
+
   return (
     <div className="track">
       {music.trackList.map((track, index) => (
-        <div className="box">
-          <button className="button" onClick={() => music.playTrack(index)}>
-            {music.isPlaying && music.currentTrackIndex === index ? (
-              <FontAwesomeIcon icon={faPause} />
-            ) : (
-              <FontAwesomeIcon icon={faPlay} />
-            )}
-          </button>
-          <div className="track-title">{track.name}</div>
+        <div key={index} className="box">
+          <div className="track-info">
+            <button
+              className="button"
+              onClick={() => music.playTrack(index)}
+            >
+              {music.isPlaying && music.currentTrackIndex === index ? (
+                <FontAwesomeIcon icon={faPause} />
+              ) : (
+                <FontAwesomeIcon icon={faPlay} />
+              )}
+            </button>
+            <div className="track-title">{track.name}</div>
+          </div>
         </div>
       ))}
     </div>
   );
 }
-
 export default TrackList;
