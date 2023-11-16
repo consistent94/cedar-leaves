@@ -1,33 +1,42 @@
 /* track.css */
 
 .track {
-  display: flex;
   flex-direction: column;
   gap: 10px;
-  background: black;
+  background: linear-gradient(to bottom, #222, #000);
+  width: 100%;
+  margin: auto;
+  padding: 20px; 
+  border-radius: 3px;
+  justify-content: space-between;
 }
 
 .track-info {
   display: flex;
   align-items: center;
+  border-bottom: 1px solid #00cc00
+}
+
+.box {
+  width: 100%;
 }
 
 .button {
-  background-color: #00ff00;
-  color: #000;
+  background-color: #00cc00; 
+  color: #009900;
   padding: 0.5em;
-  border: none;
   cursor: pointer;
-  font-size: 1.2em;
-  margin-right: 10px;
+  font-size: 0.9em;
+  margin-right: 30px;
 }
 
 .button:hover {
-  background-color: #000;
-  color: #00ff00;
+  background-color: #009900;
+  color: #00cc00;
 }
 
 .track-title {
   font-size: 18px;
   padding: 0 1em 0 0;
+  color: #fff;
 }

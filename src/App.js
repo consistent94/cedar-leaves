@@ -22,7 +22,8 @@ function App() {
     <MusicContext.Provider value={[state, setState]}>
       <div className='App'>
         <header>
-              <img src="logo.png" alt="CEDAR LEAVES" />
+              {/* <img src="logo.png" alt="CEDAR LEAVES" /> */}
+              <h1>CEDAR LEAVES</h1>
         </header>
         <main>
           <TrackList />
