@@ -9,7 +9,7 @@ const useMusicPlayer = () => {
         togglePlay();
     } else {
         state.audioPlayer.pause();
-        state.audioPlayer = new Audio(state.tracks[index].file);
+        state.audioPlayer = new Audio(state.tracks[index].url);
         console.log("index: ", state.tracks[index]);
         state.audioPlayer.play();
       setState({ ...state, currentTrackIndex: index, isPlaying: true });

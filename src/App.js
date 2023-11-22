@@ -1,22 +1,100 @@
-import { createContext, useState } from 'react';
+import { useState, useEffect } from 'react';
 import TrackList from './components/Track'
 import PlayerControls from './components/Player.js'
 
-import tracks from './data/tracks.js'
+// import tracks from './data/tracks.js'
 
 import { MusicContext } from "./contexts/MusicContext";
+
+// firebase
+import { initializeApp } from "firebase/app";
+import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
+// TODO: Add SDKs for Firebase products that you want to use
+// 
+// https://firebase.google.com/docs/web/setup#available-libraries
 
 // styles
 import './styles/app.css';
 
-function App() {
 
+const firebaseConfig = {
+  apiKey: "AIzaSyCppNrtm7HQK26JApmQCJGMmAEGWz4CfOM",
+  authDomain: "cedar-streaming.firebaseapp.com",
+  projectId: "cedar-streaming",
+  storageBucket: "gs://cedar-streaming.appspot.com",
+  messagingSenderId: "671051816448",
+  appId: "1:671051816448:web:59daaf7209186ddc7282e5",
+  measurementId: "G-WQ2KDKHKG7"
+};
+
+const app = initializeApp(firebaseConfig);
+
+function App() {
+  
+  const storage = getStorage(app);
+  const songRef = ref(storage);
+  
+  
+  
   const [state, setState] = useState({
     audioPlayer: new Audio(),
-    tracks: tracks,
+    tracks: [],
     currentTrackIndex: null,
     isPlaying: false
   })
+  
+
+  
+  const fetchSongs = async () => {
+    try {
+      
+      const songsList = await listAll(songRef);
+      // console.log('songsList:', songsList);
+
+      const songsData = await Promise.all(
+        songsList.items.map(async (item) => {
+          try {
+            const title = item.name;
+            const url = await getDownloadURL(item);
+            return { title, url };
+          } catch (urlError) {
+            // console.error('Error getting download URL:', urlError);
+            throw urlError; // Rethrow the error to propagate it to the outer catch block
+          }
+        })
+      );
+
+    setState((prev) => ({ ...prev, tracks: songsData }));
+  } catch (fetchError) {
+    // console.error('Error fetching songs:', fetchError);
+  }
+};
+
+  fetchSongs();
+
+  // useEffect(() => {
+  //   // Fetch the list of songs from Firebase Storage
+  //   const fetchSongs = async () => {
+  //     try {
+  //       const songsList = await songRef.listAll();
+  //       const songsData = await Promise.all(
+  //         songsList.items.map(async (item) => {
+  //           const title = item.name;
+  //           const url = await item.getDownloadURL();
+  //           return { title, url };
+  //         })
+  //       );
+
+  //       // Update the state with the fetched songs
+  //       setState((prev) => ({ ...prev, tracks: songsData }));
+  //     } catch (error) {
+  //       console.error('Error fetching songs:', error);
+  //     }
+  //   };
+
+  //   fetchSongs();
+  // }, [songRef]);
+
   
   return (
     <MusicContext.Provider value={[state, setState]}>

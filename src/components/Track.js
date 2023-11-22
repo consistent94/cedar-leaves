@@ -25,7 +25,7 @@ function TrackList() {
                 <FontAwesomeIcon icon={faPlay} />
               )}
             </button>
-            <div className="track-title">{track.name}</div>
+            <div className="track-title">{track.title}</div>
           </div>
         </div>
       ))}
