@@ -33,16 +33,12 @@ function App() {
   
   const storage = getStorage(app);
   const songRef = ref(storage);
-  
-  
-  
   const [state, setState] = useState({
     audioPlayer: new Audio(),
     tracks: [],
     currentTrackIndex: null,
     isPlaying: false
   })
-  
 
   
   const fetchSongs = async () => {
@@ -71,30 +67,6 @@ function App() {
 };
 
   fetchSongs();
-
-  // useEffect(() => {
-  //   // Fetch the list of songs from Firebase Storage
-  //   const fetchSongs = async () => {
-  //     try {
-  //       const songsList = await songRef.listAll();
-  //       const songsData = await Promise.all(
-  //         songsList.items.map(async (item) => {
-  //           const title = item.name;
-  //           const url = await item.getDownloadURL();
-  //           return { title, url };
-  //         })
-  //       );
-
-  //       // Update the state with the fetched songs
-  //       setState((prev) => ({ ...prev, tracks: songsData }));
-  //     } catch (error) {
-  //       console.error('Error fetching songs:', error);
-  //     }
-  //   };
-
-  //   fetchSongs();
-  // }, [songRef]);
-
   
   return (
     <MusicContext.Provider value={[state, setState]}>

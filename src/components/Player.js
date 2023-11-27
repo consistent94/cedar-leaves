@@ -34,12 +34,22 @@ function PlayerControls() {
     setProgress(e.target.value);
   };
 
+  const formatTime = (time) => {
+    if (time && !isNaN(time)) {
+      const minutes = Math.floor(time / 60);
+      const formatMinutes =
+        minutes < 10 ? `0${minutes}` : `${minutes}`;
+      const seconds = Math.floor(time % 60);
+      const formatSeconds =
+        seconds < 10 ? `0${seconds}` : `${seconds}`;
+      return `${formatMinutes}:${formatSeconds}`;
+    }
+    return '00:00';
+  };
+
   return (
     <div className="audio-player">
       <div className="box controls has-background-grey-dark">
-        <div className="current-track has-text-light">
-          <p>{music.currentTrackName}</p>
-        </div>
         <div>
           <button className="button has-text-light has-background-grey-dark">
             <FontAwesomeIcon
@@ -64,6 +74,7 @@ function PlayerControls() {
             />
           </button>
           <div className="progress-bar-container">
+          <span className="time current">{formatTime(music.currentTime)}</span>
             <input
                 type="range"
                 value={progress}
@@ -71,6 +82,7 @@ function PlayerControls() {
                 step="0.01"
                 className="progress-bar"
               />
+          <span className="time">{formatTime(music.duration)}</span>
          </div>   
         </div>
       </div>

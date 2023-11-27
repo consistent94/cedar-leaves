@@ -1,8 +1,32 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MusicContext } from "../contexts/MusicContext";
 
 const useMusicPlayer = () => {
   const [state, setState] = useContext(MusicContext);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  useEffect(() => {
+    // Set up event listeners for timeupdate and loadedmetadata
+    const audioPlayer = state.audioPlayer;
+
+    const handleTimeUpdate = () => {
+      setCurrentTime(audioPlayer.currentTime);
+    };
+
+    const handleLoadedMetadata = () => {
+      setDuration(audioPlayer.duration);
+    };
+
+    audioPlayer.addEventListener("timeupdate", handleTimeUpdate);
+    audioPlayer.addEventListener("loadedmetadata", handleLoadedMetadata);
+
+    // Remove event listeners when component unmounts
+    return () => {
+      audioPlayer.removeEventListener("timeupdate", handleTimeUpdate);
+      audioPlayer.removeEventListener("loadedmetadata", handleLoadedMetadata);
+    };
+  }, [state.audioPlayer]);
 
   function playTrack(index) {
     if (index === state.currentTrackIndex) {
@@ -52,7 +76,9 @@ const useMusicPlayer = () => {
     isPlaying: state.isPlaying,
     playNextTrack,
     playPreviousTrack,
-    audioPlayer: state.audioPlayer
+    audioPlayer: state.audioPlayer,
+    currentTime,
+    duration
   };
 };
 
