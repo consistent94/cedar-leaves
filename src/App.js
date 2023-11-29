@@ -1,30 +1,19 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import TrackList from './components/Track'
 import PlayerControls from './components/Player.js'
-
-// import tracks from './data/tracks.js'
-
 import { MusicContext } from "./contexts/MusicContext";
-
-// firebase
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
-// TODO: Add SDKs for Firebase products that you want to use
-// 
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// styles
 import './styles/app.css';
 
-
 const firebaseConfig = {
-  apiKey: "AIzaSyCppNrtm7HQK26JApmQCJGMmAEGWz4CfOM",
-  authDomain: "cedar-streaming.firebaseapp.com",
-  projectId: "cedar-streaming",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
   storageBucket: "gs://cedar-streaming.appspot.com",
-  messagingSenderId: "671051816448",
-  appId: "1:671051816448:web:59daaf7209186ddc7282e5",
-  measurementId: "G-WQ2KDKHKG7"
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
@@ -39,7 +28,6 @@ function App() {
     currentTrackIndex: null,
     isPlaying: false
   })
-
   
   const fetchSongs = async () => {
     try {
