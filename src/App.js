@@ -31,9 +31,7 @@ function App() {
   
   const fetchSongs = async () => {
     try {
-      
       const songsList = await listAll(songRef);
-      // console.log('songsList:', songsList);
 
       const songsData = await Promise.all(
         songsList.items.map(async (item) => {
@@ -42,20 +40,19 @@ function App() {
             const url = await getDownloadURL(item);
             return { title, url };
           } catch (urlError) {
-            // console.error('Error getting download URL:', urlError);
-            throw urlError; // Rethrow the error to propagate it to the outer catch block
+            throw urlError; 
           }
         })
       );
-
     setState((prev) => ({ ...prev, tracks: songsData }));
   } catch (fetchError) {
-    // console.error('Error fetching songs:', fetchError);
+    console.error('Error fetching songs:', fetchError);
   }
 };
 
   fetchSongs();
-  
+
+
   return (
     <MusicContext.Provider value={[state, setState]}>
       <div className='App'>
@@ -65,7 +62,7 @@ function App() {
         </header>
         <main>
           <TrackList />
-          <PlayerControls />
+          {state.currentTrackIndex !== null && <PlayerControls />}
         </main>
       </div>
     </MusicContext.Provider>

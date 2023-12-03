@@ -51,28 +51,33 @@ function PlayerControls() {
     <div className="audio-player">
       <div className="box controls has-background-grey-dark">
         <div>
-          <button className="button has-text-light has-background-grey-dark">
-            <FontAwesomeIcon
-              icon={faStepBackward}
-              onClick={music.playPreviousTrack}
-            />
-          </button>
-          <button
-            className="button has-text-light has-background-grey-dark"
-            onClick={music.togglePlay}
-          >
-            {music.isPlaying ? (
-              <FontAwesomeIcon icon={faPause} />
-            ) : (
-              <FontAwesomeIcon icon={faPlay} />
-            )}
-          </button>
-          <button className="button has-text-light has-background-grey-dark">
-            <FontAwesomeIcon
-              icon={faStepForward}
-              onClick={music.playNextTrack}
-            />
-          </button>
+          {/* <div className="title-container">
+            <p>{music.trackList[music.currentTrackIndex].title}</p>
+          </div> */}
+          <div className="buttons">
+            <button className="button has-text-light has-background-grey-dark">
+              <FontAwesomeIcon
+                icon={faStepBackward}
+                onClick={music.playPreviousTrack}
+              />
+            </button>
+            <button
+              className="button has-text-light has-background-grey-dark"
+              onClick={music.togglePlay}
+            >
+              {music.isPlaying ? (
+                <FontAwesomeIcon icon={faPause} />
+              ) : (
+                <FontAwesomeIcon icon={faPlay} />
+              )}
+            </button>
+            <button className="button has-text-light has-background-grey-dark">
+              <FontAwesomeIcon
+                icon={faStepForward}
+                onClick={music.playNextTrack}
+              />
+            </button>
+          </div>
           <div className="progress-bar-container">
           <span className="time current">{formatTime(music.currentTime)}</span>
             <input
@@ -84,7 +89,7 @@ function PlayerControls() {
               />
           <span className="time">{formatTime(music.duration)}</span>
          </div>   
-        </div>
+        </div> 
       </div>
     </div>
   );

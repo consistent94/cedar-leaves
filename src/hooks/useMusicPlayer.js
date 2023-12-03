@@ -34,7 +34,7 @@ const useMusicPlayer = () => {
     } else {
         state.audioPlayer.pause();
         state.audioPlayer = new Audio(state.tracks[index].url);
-        console.log("index: ", state.tracks[index]);
+        // console.log("index: ", state.tracks[index]);
         state.audioPlayer.play();
       setState({ ...state, currentTrackIndex: index, isPlaying: true });
     }
