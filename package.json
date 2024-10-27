@@ -1,0 +1,51 @@
+{
+  "name": "streaming",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.3.1",
+    "firebase": "^10.7.0",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
+    "postcss": "^8.4.47",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.69.5",
+    "web-vitals": "^2.1.4"
+  },
+  "overrides": {
+    "postcss": "^8.4.47"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

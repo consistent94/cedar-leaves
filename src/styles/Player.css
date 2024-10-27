@@ -1,0 +1,48 @@
+/* player.css */
+
+.audio-player {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: #333;
+  color: white;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.button.has-text-light {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.progress-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  padding: 10px; 
+}
+
+.progress-bar {
+  width: 70%; 
+}
+
+.time {
+  font-size: 12px;
+}
+/* 
+.title-container {
+  width: 200px; 
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+} */
