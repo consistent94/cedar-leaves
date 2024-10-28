@@ -4,7 +4,7 @@ import PlayerControls from './components/Player.js'
 import { MusicContext } from "./contexts/MusicContext";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
-import './styles/app.css';
+import './styles/App.css';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,

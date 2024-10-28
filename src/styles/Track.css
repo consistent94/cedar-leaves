@@ -3,73 +3,50 @@
 .track {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+  margin: 20px 0;
+  background: #0d0d0d;
+  padding: 15px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  width: 90%; /* Increased width to make the track container wider */
+  max-width: 800px; /* Optional: set a max width to avoid it getting too wide on larger screens */
+}
+
+.track-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #333;
 }
 
 .box {
   margin: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
+  padding: 12px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
   text-align: center;
 }
 
-.track-info {
-  display: flex;
-  align-items: center;
-}
-
 .button {
-  background-color: #333;
-  color: white;
-  border: none;
+  background-color: transparent;
+  color: #00ff99;
+  border: 1px solid #00ff99;
   padding: 8px;
   cursor: pointer;
-  margin-right: 8px;
+  transition: all 0.2s ease;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: #00ff99;
+  color: #0d0d0d;
 }
 
 .track-title {
   font-size: 16px;
+  color: #00ff99;
+  text-shadow: 0 0 8px #00ff99;
 }
-
-
-/* .track {
-  flex-direction: column;
-  gap: 15px;
-  background: linear-gradient(to bottom, #333, #000);
-  width: 100%;
-  margin: auto;
-  padding: 30px;
-  border-radius: 5px;
-  justify-content: space-between;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
-}
-
-.track-info {
-  display: flex;
-  align-items: center;
-  border-bottom: 2px solid #00cc00;
-}
-
-.box {
-  width: 100%;
-}
-
-.button {
-  background-color: #00cc00;
-  color: #009900;
-  padding: 1em;
-  cursor: pointer;
-  font-size: 1em;
-  margin-right: 40px;
-}
-
-.button:hover {
-  background-color: #009900;
-  color: #00cc00;
-}
-
-.track-title {
-  font-size: 20px;
-  padding: 0 1.5em 0 0;
-  color: #fff;
-} */

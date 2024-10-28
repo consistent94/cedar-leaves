@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import useMusicPlayer from "../hooks/useMusicPlayer";
 
-import '../styles/player.css'
+import '../styles/Player.css'
 
 function PlayerControls() {
   const music = useMusicPlayer();

@@ -1,1 +1,1 @@
-cedar streaming
+This is my practice project

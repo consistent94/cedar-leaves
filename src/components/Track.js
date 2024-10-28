@@ -4,7 +4,7 @@ import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 
 import useMusicPlayer from "./../hooks/useMusicPlayer";
 
-import '../styles/track.css'
+import '../styles/Track.css'
 
 
 function TrackList() {
