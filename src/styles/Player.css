@@ -25,6 +25,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   border-radius: 5px;
+  margin: 0 10px;
 }
 
 .button.has-text-light:hover {
