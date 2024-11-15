@@ -7,7 +7,6 @@ const useMusicPlayer = () => {
   const [duration, setDuration] = useState(0);
 
   useEffect(() => {
-    // Set up event listeners for timeupdate and loadedmetadata
     const audioPlayer = state.audioPlayer;
 
     const handleTimeUpdate = () => {
@@ -21,21 +20,42 @@ const useMusicPlayer = () => {
     audioPlayer.addEventListener("timeupdate", handleTimeUpdate);
     audioPlayer.addEventListener("loadedmetadata", handleLoadedMetadata);
 
-    // Remove event listeners when component unmounts
     return () => {
       audioPlayer.removeEventListener("timeupdate", handleTimeUpdate);
       audioPlayer.removeEventListener("loadedmetadata", handleLoadedMetadata);
     };
   }, [state.audioPlayer]);
 
+  useEffect(() => {
+    // Preload durations for all tracks
+    const loadTrackDurations = async () => {
+      const updatedTracks = await Promise.all(
+        state.tracks.map(async (track) => {
+          if (!track.duration) {
+            const audio = new Audio(track.url);
+            await new Promise((resolve) => {
+              audio.addEventListener("loadedmetadata", () => {
+                track.duration = audio.duration; // Set duration
+                resolve();
+              });
+            });
+          }
+          return track;
+        })
+      );
+      setState((prevState) => ({ ...prevState, tracks: updatedTracks }));
+    };
+  
+    loadTrackDurations();
+  }, [state.tracks, setState]);
+
   function playTrack(index) {
     if (index === state.currentTrackIndex) {
-        togglePlay();
+      togglePlay();
     } else {
-        state.audioPlayer.pause();
-        state.audioPlayer = new Audio(state.tracks[index].url);
-        // console.log("index: ", state.tracks[index]);
-        state.audioPlayer.play();
+      state.audioPlayer.pause();
+      state.audioPlayer = new Audio(state.tracks[index].url);
+      state.audioPlayer.play();
       setState({ ...state, currentTrackIndex: index, isPlaying: true });
     }
   }
@@ -50,18 +70,18 @@ const useMusicPlayer = () => {
   }
 
   function playNextTrack() {
-    let newIndex = null;
-    state.currentTrackIndex === state.tracks.length - 1
-      ? (newIndex = 0)
-      : (newIndex = state.currentTrackIndex + 1);
+    const newIndex =
+      state.currentTrackIndex === state.tracks.length - 1
+        ? 0
+        : state.currentTrackIndex + 1;
     playTrack(newIndex);
   }
 
   function playPreviousTrack() {
-    let newIndex = null;
-    state.currentTrackIndex === 0
-      ? (newIndex = state.tracks.length - 1)
-      : (newIndex = state.currentTrackIndex - 1);
+    const newIndex =
+      state.currentTrackIndex === 0
+        ? state.tracks.length - 1
+        : state.currentTrackIndex - 1;
     playTrack(newIndex);
   }
 
@@ -78,7 +98,7 @@ const useMusicPlayer = () => {
     playPreviousTrack,
     audioPlayer: state.audioPlayer,
     currentTime,
-    duration
+    duration,
   };
 };
 

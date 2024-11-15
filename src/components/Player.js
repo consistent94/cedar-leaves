@@ -51,9 +51,6 @@ function PlayerControls() {
     <div className="audio-player">
       <div className="box controls has-background-grey-dark">
         <div>
-          {/* <div className="title-container">
-            <p>{music.trackList[music.currentTrackIndex].title}</p>
-          </div> */}
           <div className="buttons">
             <button className="button has-text-light has-background-grey-dark">
               <FontAwesomeIcon

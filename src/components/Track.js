@@ -1,35 +1,40 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
-
 import useMusicPlayer from "./../hooks/useMusicPlayer";
-
-import '../styles/Track.css'
-
+import '../styles/Track.css';
 
 function TrackList() {
   const music = useMusicPlayer();
+
+  const formatTime = (time) => {
+    if (time && !isNaN(time)) {
+      const minutes = Math.floor(time / 60);
+      const formatMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+      const seconds = Math.floor(time % 60);
+      const formatSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+      return `${formatMinutes}:${formatSeconds}`;
+    }
+    return "00:00";
+  };
 
   return (
     <div className="track">
       {music.trackList.map((track, index) => (
         <div key={index} className="box">
           <div className="track-info">
-            <button
-              className="button"
+            <div
+              className="track-title typewriter"
               onClick={() => music.playTrack(index)}
             >
-              {music.isPlaying && music.currentTrackIndex === index ? (
-                <FontAwesomeIcon icon={faPause} />
-              ) : (
-                <FontAwesomeIcon icon={faPlay} />
-              )}
-            </button>
-            <div className="track-title">{track.title}</div>
+              {track.title}
+            </div>
+            <div className="track-length">
+              {formatTime(track.duration)}
+            </div>
           </div>
         </div>
       ))}
     </div>
   );
 }
+
 export default TrackList;
