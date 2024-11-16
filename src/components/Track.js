@@ -19,10 +19,15 @@ function TrackList() {
   return (
     <div className="track">
       {music.trackList.map((track, index) => (
-        <div key={index} className="box">
+        <div
+          key={index}
+          className={`box ${index === music.currentTrackIndex ? "selected" : ""}`}
+        >
           <div className="track-info">
             <div
-              className="track-title typewriter"
+              className={`track-title typewriter ${
+                index === music.currentTrackIndex ? "selected-title" : ""
+              }`}
               onClick={() => music.playTrack(index)}
             >
               {track.title}

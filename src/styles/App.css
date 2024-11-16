@@ -2,27 +2,27 @@
 body, .App {
   font-family: 'Courier New', monospace;
   text-align: center;
-  background-color: #0d0d0d; /* Deep black for a console-like background */
-  color: #00ff99; /* Neon green text */
+  background-color: #0d0d0d; 
+  color: #D3D3D3; 
   margin: 0;
   height: 100vh;
 }
 
 header {
-  background: linear-gradient(90deg, #0d0d0d, #333); /* Subtle gradient for modern touch */
+  background: linear-gradient(90deg, #0d0d0d, #333); 
   padding: 1.5rem;
-  text-shadow: 0 0 8px #00ff99;
+  text-shadow: 0 0 8px #D3D3D3;
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #00ff99;
+  color: #D3D3D3;
   animation: neon-flicker 2s infinite alternate; /* Neon flicker effect */
 }
 
 /* Neon Flicker Animation */
 @keyframes neon-flicker {
-  0%, 100% { text-shadow: 0 0 8px #00ff99, 0 0 16px #009966; }
-  50% { text-shadow: 0 0 4px #00ff99; }
+  0%, 100% { text-shadow: 0 0 8px #D3D3D3, 0 0 16px #009966; }
+  50% { text-shadow: 0 0 4px #D3D3D3; }
 }

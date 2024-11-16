@@ -9,6 +9,8 @@ const useMusicPlayer = () => {
   useEffect(() => {
     const audioPlayer = state.audioPlayer;
 
+    if (!audioPlayer) return;
+
     const handleTimeUpdate = () => {
       setCurrentTime(audioPlayer.currentTime);
     };
@@ -26,37 +28,77 @@ const useMusicPlayer = () => {
     };
   }, [state.audioPlayer]);
 
+  async function preloadTrackDuration(track) {
+    if (!track.duration) {
+      const audio = new Audio(track.url);
+      await new Promise((resolve) => {
+        audio.addEventListener("loadedmetadata", () => {
+          track.duration = audio.duration;
+          resolve(track);
+        });
+      });
+    }
+  };
+
   useEffect(() => {
-    // Preload durations for all tracks
-    const loadTrackDurations = async () => {
+    const preloadDurations = async () => {
       const updatedTracks = await Promise.all(
         state.tracks.map(async (track) => {
-          if (!track.duration) {
+          if (!track.duration || track.duration === 0) {
+            // Create a temporary Audio element to preload duration
             const audio = new Audio(track.url);
-            await new Promise((resolve) => {
+            return new Promise((resolve) => {
               audio.addEventListener("loadedmetadata", () => {
-                track.duration = audio.duration; // Set duration
-                resolve();
+                resolve({ ...track, duration: audio.duration });
+              });
+              audio.addEventListener("error", () => {
+                console.error(`Failed to load metadata for ${track.title}`);
+                resolve(track); // Return the track unchanged on error
               });
             });
           }
           return track;
         })
       );
-      setState((prevState) => ({ ...prevState, tracks: updatedTracks }));
+  
+      // Avoid updating the state if nothing changed
+      if (
+        JSON.stringify(updatedTracks) !== JSON.stringify(state.tracks)
+      ) {
+        setState((prevState) => ({
+          ...prevState,
+          tracks: updatedTracks,
+        }));
+      }
     };
   
-    loadTrackDurations();
+    if (state.tracks.length > 0) {
+      preloadDurations(); // Preload durations for all tracks
+    }
   }, [state.tracks, setState]);
+  
 
-  function playTrack(index) {
+  async function playTrack(index) {
     if (index === state.currentTrackIndex) {
       togglePlay();
     } else {
-      state.audioPlayer.pause();
-      state.audioPlayer = new Audio(state.tracks[index].url);
-      state.audioPlayer.play();
-      setState({ ...state, currentTrackIndex: index, isPlaying: true });
+      const track = state.tracks[index];
+      await preloadTrackDuration(track);
+
+      if (state.audioPlayer) {
+        state.audioPlayer.pause();
+      }
+
+      const audioPlayer = state.audioPlayer || new Audio();
+      audioPlayer.src = track.url;
+      audioPlayer.play();
+
+      setState({
+        ...state,
+        audioPlayer,
+        currentTrackIndex: index,
+        isPlaying: true,
+      });
     }
   }
 

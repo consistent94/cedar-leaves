@@ -1,7 +1,7 @@
 /* Audio Player */
 .audio-player {
   background: #0d0d0d;
-  color: #00ff99;
+  color: #D3D3D3;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -40,7 +40,7 @@
   height: 100%;
   width: 50%;
   display: block;
-  background: linear-gradient(to right, #00ff99, #009966);
+  background: linear-gradient(to right, #D3D3D3, #009966);
   animation: progress-move 5s infinite linear;
 }
 
