@@ -5,53 +5,74 @@
   position: fixed;
   bottom: 0;
   width: 100%;
+  max-width: 100vw;
+  padding: 1rem;
   box-shadow: 0 -4px 10px rgba(0, 255, 153, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Controls and Song Title */
+.controls-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .controls {
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 1rem;
+  gap: 1rem;
 }
 
-.button.has-text-light {
-  margin: 0 5px;
+.track-title {
+  color: #D3D3D3;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
-.progress-bar-container {
+.time-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+  width: 100%;
   margin-top: 10px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 20px;
 }
 
 .progress-bar {
-  width: 70%;
+  width: 100%;
   height: 5px;
   background: #333;
   border-radius: 5px;
-  position: relative;
-  overflow: hidden;
+  appearance: none;
+  outline: none;
+  position: absolute;
 }
 
-.progress-bar::after {
-  content: '';
-  height: 100%;
-  width: 50%;
-  display: block;
-  background: linear-gradient(to right, #D3D3D3, #009966);
-  animation: progress-move 5s infinite linear;
+.progress-bar::-webkit-slider-thumb {
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #009966;
+  cursor: pointer;
 }
 
-/* Progress Animation */
-@keyframes progress-move {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(100%); }
-}
-
-.time {
-  color: #999;
-  font-size: 0.9rem;
-  margin-left: 10px;
+.progress-bar::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #009966;
+  cursor: pointer;
 }

@@ -1,4 +1,8 @@
 /* General Theme */
+* {
+  box-sizing: border-box; /* Ensures padding/margin are included in width */
+}
+
 body, .App {
   font-family: 'Courier New', monospace;
   text-align: center;
