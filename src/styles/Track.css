@@ -28,17 +28,15 @@
 
 /* Track List */
 .track {
-  background: #1a1a1a;
-  border: 1px solid #D3D3D3;
-  border-radius: 5px;
+  /* background: #1a1a1a; */
+  /* border-radius: 5px; */
   margin: 15px 0;
   padding: 20px;
-  box-shadow: 0 0 15px rgba(0, 255, 153, 0.3);
 }
 
 .box {
-  background: #0d0d0d;
-  border-bottom: 1px solid #D3D3D3;
+  /* background: #0d0d0d; */
+  /* border-bottom: 1px solid #D3D3D3; */
   padding: 10px;
   border-radius: 5px;
   text-align: center;

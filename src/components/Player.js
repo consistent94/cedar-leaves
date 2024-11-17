@@ -10,6 +10,8 @@ import useMusicPlayer from "../hooks/useMusicPlayer";
 import "../styles/Player.css";
 
 function PlayerControls() {
+  console.log("PlayerControls rendered");
+  
   const music = useMusicPlayer();
   const [progress, setProgress] = useState(0);
 
@@ -29,20 +31,20 @@ function PlayerControls() {
     };
   }, [music.audioPlayer]);
 
-  useEffect(() => {
-    const handleKeyPress = (e) => {
-      if (e.code === "Space") {
-        e.preventDefault(); // Prevent page scroll
-        music.togglePlay(); // Toggle playback
-      }
-    };
+  // useEffect(() => {
+  //   const handleKeyPress = (e) => {
+  //     if (e.code === "Space") {
+  //       e.preventDefault(); // Prevent page scroll
+  //       music.togglePlay(); // Toggle playback
+  //     }
+  //   };
   
-    window.addEventListener("keydown", handleKeyPress);
+  //   window.addEventListener("keydown", handleKeyPress);
   
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
-  }, [music]);
+  //   return () => {
+  //     window.removeEventListener("keydown", handleKeyPress);
+  //   };
+  // }, [music]);
 
   const handleProgressChange = (e) => {
     const newTime = (e.target.value / 100) * music.audioPlayer.duration;

@@ -4,7 +4,9 @@ import '../styles/Track.css';
 
 function TrackList() {
   const music = useMusicPlayer();
-
+  
+  console.log("TrackList - music.trackList:", music.trackList);
+  
   const formatTime = (time) => {
     if (time && !isNaN(time)) {
       const minutes = Math.floor(time / 60);
