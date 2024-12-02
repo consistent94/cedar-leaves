@@ -23,20 +23,29 @@ function App() {
   const storage = getStorage(app);
   const songRef = ref(storage);
 
-  // Initial state
+  // Track list state
+  const [tracks, setTracks] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [state, setState] = useState({
-    audioPlayer: new Audio(),
-    tracks: [],
+    audioPlayer: null,
     currentTrackIndex: null,
     isPlaying: false,
+    tracks: [],  // Ensure tracks are initialized to an empty array
   });
 
-  // Loading state
-  const [loading, setLoading] = useState(true);
+  // Initialize audioPlayer once
+  useEffect(() => {
+    const audioPlayer = new Audio();
+    setState((prev) => ({
+      ...prev,
+      audioPlayer,
+    }));
+  }, []);
 
   // Fetch songs only once
   useEffect(() => {
     const fetchSongs = async () => {
+      console.log('Fetching songs...');
       try {
         const songsList = await listAll(songRef);
         const songsData = await Promise.all(
@@ -52,19 +61,27 @@ function App() {
           })
         );
 
+        const filteredTracks = songsData.filter((song) => song !== null);
+        setTracks(filteredTracks);  // Set tracks once
+
         setState((prev) => ({
           ...prev,
-          tracks: songsData.filter((song) => song !== null),
+          tracks: filteredTracks,  // Update state with fetched tracks
         }));
       } catch (error) {
         console.error("Error fetching songs:", error);
       } finally {
-        setLoading(false);
+        setLoading(false);  // Stop loading once songs are fetched
       }
     };
 
     fetchSongs();
-  }, [songRef]);
+  }, []);  // Empty dependency array means this effect runs only once when the component mounts
+
+  // Log state updates (optional for debugging)
+  useEffect(() => {
+    console.log('Tracks have been updated:', tracks);
+  }, [tracks]);
 
   // Render loading or main content
   if (loading) {

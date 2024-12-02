@@ -1,12 +1,12 @@
 /* Typewriter Animation */
-@keyframes typewriter {
+/* @keyframes typewriter {
   from { width: 0; }
   to { width: 100%; }
 }
 
 @keyframes blink {
   50% { border-color: transparent; }
-}
+} */
 
 .typewriter {
   display: inline-block;
