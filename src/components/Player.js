@@ -29,7 +29,7 @@ function PlayerControls() {
     return () => {
       music.audioPlayer.removeEventListener("timeupdate", updateProgress);
     };
-  }, [music.audioPlayer]);
+  }, []);
 
   // useEffect(() => {
   //   const handleKeyPress = (e) => {

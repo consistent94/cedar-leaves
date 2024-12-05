@@ -86,7 +86,7 @@ const useMusicPlayer = () => {
     };
 
     preloadDurations();
-  }, [state.tracks, setState]);
+  }, []);
 
   // Handle audio player events
   useEffect(() => {
@@ -108,7 +108,7 @@ const useMusicPlayer = () => {
       audioPlayer.removeEventListener("timeupdate", handleTimeUpdate);
       audioPlayer.removeEventListener("ended", handleTrackEnd);
     };
-  }, [audioPlayer, state.currentTrackIndex, state.tracks.length, playTrack]); // Added missing dependencies
+  }, []); 
 
   return {
     playTrack,

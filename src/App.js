@@ -53,7 +53,7 @@ function App() {
             try {
               const title = item.name;
               const url = await getDownloadURL(item);
-              return { title, url, duration: null }; // Initialize duration as null
+              return { title, url, duration: null }; 
             } catch (error) {
               console.error("Error fetching URL for item:", error);
               return null;
@@ -62,11 +62,11 @@ function App() {
         );
 
         const filteredTracks = songsData.filter((song) => song !== null);
-        setTracks(filteredTracks);  // Set tracks once
+        setTracks(filteredTracks);  
 
         setState((prev) => ({
           ...prev,
-          tracks: filteredTracks,  // Update state with fetched tracks
+          tracks: filteredTracks,  
         }));
       } catch (error) {
         console.error("Error fetching songs:", error);
@@ -78,12 +78,6 @@ function App() {
     fetchSongs();
   }, []);  // Empty dependency array means this effect runs only once when the component mounts
 
-  // Log state updates (optional for debugging)
-  useEffect(() => {
-    console.log('Tracks have been updated:', tracks);
-  }, [tracks]);
-
-  // Render loading or main content
   if (loading) {
     return <div>Loading songs...</div>;
   }

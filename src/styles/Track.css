@@ -60,7 +60,7 @@
 
 .track-title.selected-title {
   font-weight: bold;
-  color: #ff9933; 
+  color: rgba(0, 255, 153, 0.5); 
   /* font-style: italic;  */
 }
 

@@ -6,7 +6,6 @@ function TrackList() {
   const music = useMusicPlayer();
 
   console.log("TrackList - music.trackList:", music.trackList);
-  console.log("TrackList - isLoading:", music.isLoading); 
 
   // Move formatTime function definition before it's used
   const formatTime = (time) => {
@@ -23,8 +22,6 @@ function TrackList() {
   return (
     <div className="track">
       {music.trackList.map((track, index) => {
-        console.log("Rendering track:", track.title, "Duration:", track.duration);  // Log each track's duration
-
         return (
           <div
             key={index}
