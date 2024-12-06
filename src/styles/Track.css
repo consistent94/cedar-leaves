@@ -1,24 +1,24 @@
-/* Typewriter Animation */
+
 /* @keyframes typewriter {
   from { width: 0; }
-  to { width: 100%; }
-}
-
-@keyframes blink {
-  50% { border-color: transparent; }
+  to { width: 30%; }
 } */
+
+/* @keyframes blink {
+  50% { border-color: transparent; }
+}  */
 
 .typewriter {
   display: inline-block;
-  font-family: 'Courier New', monospace;
+  /* font-family: 'Courier New', monospace; */
   font-size: 1.2rem;
   color: #D3D3D3;
-  overflow: hidden;
-  white-space: nowrap;
+  /* overflow: hidden; */
+  /* white-space: nowrap; */
   border-right: 2px solid #D3D3D3;
-  animation: typewriter 4s, blink 0.7s step-end;
-  cursor: pointer;
-  transition: color 0.2s ease-in-out;
+  animation: blink 0.7s steps(1, end);
+  /* cursor: pointer; */
+  /* transition: color 0.2s ease-in-out; */
 }
 
 .typewriter:hover {
@@ -35,10 +35,10 @@
 }
 
 .box {
-  /* background: #0d0d0d; */
-  /* border-bottom: 1px solid #D3D3D3; */
+  background: #0d0d0d;
+  border-bottom: 1px solid #D3D3D3; 
   padding: 10px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   text-align: center;
   box-shadow: 0 0 8px rgba(0, 255, 153, 0.3);
 }

@@ -23,7 +23,7 @@ function App() {
   const storage = getStorage(app);
   const songRef = ref(storage);
 
-  // Track list state
+  // eslint-disable-next-line no-unused-vars
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState({
@@ -76,7 +76,7 @@ function App() {
     };
 
     fetchSongs();
-  }, []);  // Empty dependency array means this effect runs only once when the component mounts
+  }, []);  
 
   if (loading) {
     return <div>Loading songs...</div>;
