@@ -1,15 +1,15 @@
-import { useContext, useEffect, useState, useCallback, useRef } from "react";
+import { useContext, useEffect, useState, useCallback, useRef, useMemo } from "react";
 import { MusicContext } from "../contexts/MusicContext";
 
 const useMusicPlayer = () => {
   const [state, setState] = useContext(MusicContext);
   const [currentTime, setCurrentTime] = useState(0);
-  const durationsRef = useRef({}); // Cache for durations
-  const isLoadingRef = useRef(false); // Prevent redundant loading
+  const durationsRef = useRef({});
+  const isLoadingRef = useRef(false);
+  const currentTimeRef = useRef(0);
 
   const audioPlayer = state.audioPlayer;
 
-  // Define the togglePlay function first, so it's available for use in playTrack and useEffect
   const togglePlay = useCallback(() => {
     if (audioPlayer) {
       const isPlaying = !state.isPlaying;
@@ -21,7 +21,6 @@ const useMusicPlayer = () => {
     }
   }, [audioPlayer, state.isPlaying, setState]);
 
-  // Define playTrack function
   const playTrack = useCallback(
     async (index) => {
       if (index === state.currentTrackIndex) {
@@ -47,10 +46,9 @@ const useMusicPlayer = () => {
     [state.tracks, state.currentTrackIndex, audioPlayer, togglePlay, setState]
   );
 
-  // Preload durations once
   useEffect(() => {
     const preloadDurations = async () => {
-      if (isLoadingRef.current) return; // Prevent redundant calls
+      if (isLoadingRef.current) return;
       isLoadingRef.current = true;
 
       const updatedTracks = await Promise.all(
@@ -63,8 +61,8 @@ const useMusicPlayer = () => {
                 durationsRef.current[track.title] = trackDuration;
                 resolve();
               });
-              audio.addEventListener("error", () => resolve()); // Handle loading errors gracefully
-              audio.load(); // Trigger metadata loading
+              audio.addEventListener("error", () => resolve());
+              audio.load();
             });
           }
           return {
@@ -74,7 +72,6 @@ const useMusicPlayer = () => {
         })
       );
 
-      // Avoid setting state unless tracks have actually changed
       if (JSON.stringify(updatedTracks) !== JSON.stringify(state.tracks)) {
         setState((prevState) => ({
           ...prevState,
@@ -88,11 +85,13 @@ const useMusicPlayer = () => {
     preloadDurations();
   }, []);
 
-  // Handle audio player events
   useEffect(() => {
     if (!audioPlayer) return;
 
-    const handleTimeUpdate = () => setCurrentTime(audioPlayer.currentTime);
+    const handleTimeUpdate = () => {
+      currentTimeRef.current = audioPlayer.currentTime;
+      setCurrentTime(audioPlayer.currentTime);
+    };
     const handleTrackEnd = () => {
       const nextIndex =
         state.currentTrackIndex === state.tracks.length - 1
@@ -108,9 +107,11 @@ const useMusicPlayer = () => {
       audioPlayer.removeEventListener("timeupdate", handleTimeUpdate);
       audioPlayer.removeEventListener("ended", handleTrackEnd);
     };
-  }, []); 
+  }, []);
 
-  return {
+  return useMemo(() => ({
+    audioPlayer,
+    getCurrentTime: () => currentTimeRef.current,
     playTrack,
     togglePlay,
     currentTrackIndex: state.currentTrackIndex,
@@ -132,10 +133,17 @@ const useMusicPlayer = () => {
           ? state.tracks.length - 1
           : state.currentTrackIndex - 1
       ),
-    audioPlayer,
     currentTime,
     isLoading: isLoadingRef.current,
-  };
+  }), [
+    audioPlayer,
+    playTrack,
+    togglePlay,
+    state.currentTrackIndex,
+    state.tracks,
+    state.isPlaying,
+    currentTime,
+  ]);
 };
 
 export default useMusicPlayer;

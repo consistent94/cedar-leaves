@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPause,
@@ -9,42 +9,22 @@ import {
 import useMusicPlayer from "../hooks/useMusicPlayer";
 import "../styles/Player.css";
 
-function PlayerControls() {
-  console.log("PlayerControls rendered");
-  
+const PlayerControls = memo(() => {
   const music = useMusicPlayer();
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const updateProgress = () => {
+      const currentTime = music.getCurrentTime();
       if (music.audioPlayer.duration) {
-        const newProgress =
-          (music.audioPlayer.currentTime / music.audioPlayer.duration) * 100;
+        const newProgress = (currentTime / music.audioPlayer.duration) * 100;
         setProgress(newProgress);
       }
     };
 
-    music.audioPlayer.addEventListener("timeupdate", updateProgress);
-
-    return () => {
-      music.audioPlayer.removeEventListener("timeupdate", updateProgress);
-    };
-  }, []);
-
-  // useEffect(() => {
-  //   const handleKeyPress = (e) => {
-  //     if (e.code === "Space") {
-  //       e.preventDefault(); // Prevent page scroll
-  //       music.togglePlay(); // Toggle playback
-  //     }
-  //   };
-  
-  //   window.addEventListener("keydown", handleKeyPress);
-  
-  //   return () => {
-  //     window.removeEventListener("keydown", handleKeyPress);
-  //   };
-  // }, [music]);
+    const interval = setInterval(updateProgress, 100);
+    return () => clearInterval(interval);
+  }, [music]);
 
   const handleProgressChange = (e) => {
     const newTime = (e.target.value / 100) * music.audioPlayer.duration;
@@ -67,7 +47,6 @@ function PlayerControls() {
 
   return (
     <div className="audio-player">
-      {/* Controls and Track Info */}
       <div className="controls-container">
         <div className="controls">
           <button className="button has-text-light">
@@ -95,7 +74,6 @@ function PlayerControls() {
         </div>
       </div>
 
-      {/* Progress Bar */}
       <div className="progress-bar-container">
         <input
           type="range"
@@ -106,13 +84,12 @@ function PlayerControls() {
         />
       </div>
 
-      {/* Time Info */}
       <div className="time-container">
         <span>{formatTime(music.currentTime)}</span>
         <span>{formatTime(currentTrack?.duration)}</span>
       </div>
     </div>
   );
-}
+});
 
 export default PlayerControls;
