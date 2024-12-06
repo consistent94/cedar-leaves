@@ -1,29 +1,27 @@
-
-/* @keyframes typewriter {
-  from { width: 0; }
-  to { width: 30%; }
-} */
-
-/* @keyframes blink {
-  50% { border-color: transparent; }
-}  */
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
 
 .typewriter {
   display: inline-block;
-  /* font-family: 'Courier New', monospace; */
+  font-family: 'Courier New', monospace; /* Typewriter font */
   font-size: 1.2rem;
   color: #D3D3D3;
-  /* overflow: hidden; */
-  /* white-space: nowrap; */
-  border-right: 2px solid #D3D3D3;
-  animation: blink 0.7s steps(1, end);
-  /* cursor: pointer; */
-  /* transition: color 0.2s ease-in-out; */
+  border-right: 2px solid #D3D3D3; /* Blinking cursor */
+  animation: blink 0.7s steps(1, end) infinite;
+}
+
+.typewriter-container {
+  display: inline-block;
+  width: fit-content; /* Adjust to text size */
 }
 
 .typewriter:hover {
   color: #00ffcc;
   text-shadow: 0 0 8px #00ffcc, 0 0 16px #0099aa;
+  animation: none; /* Stop typing effect when hovered */
 }
 
 /* Track List */

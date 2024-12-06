@@ -13,7 +13,7 @@
   align-items: center;
 }
 
-/* Controls and Song Title */
+/* Updated Controls */
 .controls-container {
   display: flex;
   justify-content: space-between;
@@ -27,11 +27,44 @@
   gap: 1rem;
 }
 
+.controls button {
+  background: #009966; /* Green theme */
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 255, 153, 0.4);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.controls button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 255, 153, 0.6);
+}
+
+.controls button:active {
+  transform: scale(0.9);
+  box-shadow: 0 3px 6px rgba(0, 255, 153, 0.4);
+}
+
+.controls button .fa-icon {
+  color: #fff; /* White icon color */
+  font-size: 1.2rem;
+}
+
+/* Track Title */
 .track-title {
   color: #D3D3D3;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: bold;
+  text-align: center;
+  margin: 0.5rem 0;
 }
+
 
 .time-container {
   display: flex;

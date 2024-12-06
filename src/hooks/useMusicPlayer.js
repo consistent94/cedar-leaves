@@ -83,6 +83,7 @@ const useMusicPlayer = () => {
     };
 
     preloadDurations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -107,6 +108,7 @@ const useMusicPlayer = () => {
       audioPlayer.removeEventListener("timeupdate", handleTimeUpdate);
       audioPlayer.removeEventListener("ended", handleTrackEnd);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return useMemo(() => ({
