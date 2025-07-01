@@ -7,10 +7,12 @@
   width: 100%;
   max-width: 100vw;
   padding: 1rem;
-  box-shadow: 0 -4px 10px rgba(0, 255, 153, 0.5);
+  box-shadow: 0 -4px 24px 2px #00ffcc, 0 -4px 10px rgba(0, 255, 153, 0.5);
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-top: 2px solid #00ffcc;
+  border-radius: 8px 8px 0 0;
 }
 
 /* Controls and Song Title */
@@ -65,14 +67,27 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background: #009966;
+  background: #00ffcc;
   cursor: pointer;
+  box-shadow: 0 0 8px #00ffcc, 0 0 16px #0099aa;
+  animation: glitch 1.2s infinite alternate;
 }
 
 .progress-bar::-moz-range-thumb {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background: #009966;
+  background: #00ffcc;
   cursor: pointer;
+  box-shadow: 0 0 8px #00ffcc, 0 0 16px #0099aa;
+  animation: glitch 1.2s infinite alternate;
+}
+
+@keyframes glitch {
+  0% { box-shadow: 0 0 8px #00ffcc, 0 0 16px #0099aa; }
+  20% { box-shadow: 0 0 4px #00ffcc, 0 0 8px #ff00cc; }
+  40% { box-shadow: 0 0 12px #00ffcc, 0 0 24px #0099aa; }
+  60% { box-shadow: 0 0 4px #00ffcc, 0 0 8px #ff00cc; }
+  80% { box-shadow: 0 0 8px #00ffcc, 0 0 16px #0099aa; }
+  100% { box-shadow: none; }
 }

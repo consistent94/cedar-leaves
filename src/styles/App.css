@@ -10,6 +10,21 @@ body, .App {
   color: #D3D3D3; 
   margin: 0;
   height: 100vh;
+  position: relative;
+  /* Scanline overlay */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0,255,153,0.01) 0px,
+    rgba(0,255,153,0.01) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  animation: scanlines 0.4s linear infinite;
+}
+
+@keyframes scanlines {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 4px; }
 }
 
 header {
@@ -22,11 +37,21 @@ h1 {
   font-size: 1.5rem;
   font-weight: bold;
   color: #D3D3D3;
-  animation: neon-flicker 2s infinite alternate; /* Neon flicker effect */
+  animation: neon-flicker 2s infinite alternate, glitch 1.2s infinite alternate;
+  letter-spacing: 0.05em;
+  position: relative;
 }
 
-/* Neon Flicker Animation */
 @keyframes neon-flicker {
   0%, 100% { text-shadow: 0 0 8px #D3D3D3, 0 0 16px #009966; }
   50% { text-shadow: 0 0 4px #D3D3D3; }
+}
+
+@keyframes glitch {
+  0% { text-shadow: 2px 0 #00ffcc, -2px 0 #ff00cc; }
+  20% { text-shadow: -2px 0 #00ffcc, 2px 0 #ff00cc; }
+  40% { text-shadow: 2px 2px #00ffcc, -2px -2px #ff00cc; }
+  60% { text-shadow: -2px 2px #00ffcc, 2px -2px #ff00cc; }
+  80% { text-shadow: 2px 0 #00ffcc, -2px 0 #ff00cc; }
+  100% { text-shadow: none; }
 }
