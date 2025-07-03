@@ -36,6 +36,8 @@ const useMusicPlayer = () => {
         const newAudioPlayer = new Audio(track.url);
         newAudioPlayer.play();
 
+        setCurrentTime(0); // Reset currentTime when new track starts
+
         setState((prevState) => ({
           ...prevState,
           audioPlayer: newAudioPlayer,
