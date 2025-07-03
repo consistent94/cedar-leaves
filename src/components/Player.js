@@ -16,6 +16,8 @@ function PlayerControls() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    if (!music.audioPlayer) return;
+
     const updateProgress = () => {
       if (music.audioPlayer.duration) {
         const newProgress =
@@ -26,15 +28,13 @@ function PlayerControls() {
 
     music.audioPlayer.addEventListener("timeupdate", updateProgress);
 
+    // Reset progress immediately when audioPlayer changes
+    setProgress(0);
+
     return () => {
       music.audioPlayer.removeEventListener("timeupdate", updateProgress);
     };
-  }, []);
-
-  // Reset progress when track changes
-  useEffect(() => {
-    setProgress(0);
-  }, [music.currentTrackIndex]);
+  }, [music.audioPlayer]);
 
   // useEffect(() => {
   //   const handleKeyPress = (e) => {
