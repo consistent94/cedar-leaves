@@ -31,6 +31,11 @@ function PlayerControls() {
     };
   }, []);
 
+  // Reset progress when track changes
+  useEffect(() => {
+    setProgress(0);
+  }, [music.currentTrackIndex]);
+
   // useEffect(() => {
   //   const handleKeyPress = (e) => {
   //     if (e.code === "Space") {
